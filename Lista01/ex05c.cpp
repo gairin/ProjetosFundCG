@@ -36,7 +36,7 @@ int main()
 {
 	glfwInit();
 
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Ex05a", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Ex05c", nullptr, nullptr);
 	glfwMakeContextCurrent(window);
 
 	glfwSetKeyCallback(window, key_callback);
@@ -47,7 +47,7 @@ int main()
 
 	}
 
-	const GLubyte* renderer = glGetString(GL_RENDERER); 
+	const GLubyte* renderer = glGetString(GL_RENDERER);
 	const GLubyte* version = glGetString(GL_VERSION);
 	cout << "Renderer: " << renderer << endl;
 	cout << "OpenGL version supported " << version << endl;
@@ -60,12 +60,12 @@ int main()
 	GLuint shaderID = setupShader();
 
 	GLuint VAO = setupGeometry();
-	
+
 	GLint colorLoc = glGetUniformLocation(shaderID, "inputColor");
 	assert(colorLoc > -1);
-	
+
 	glUseProgram(shaderID);
-	
+
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -73,10 +73,14 @@ int main()
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		glLineWidth(10);
+		glPointSize(10);
+
 		glBindVertexArray(VAO);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glUniform4f(colorLoc, 0.0f, 0.0f, 1.0f, 1.0f);
 
-		glDrawArrays(GL_TRIANGLES, 0, 6);
+		glDrawArrays(GL_POINTS, 0, 6);
 		glUniform4f(colorLoc, 1.0f, 0.0f, 1.0f, 1.0f);
 
 		glfwSwapBuffers(window);
@@ -159,10 +163,9 @@ int setupGeometry()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0); 
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	glBindVertexArray(0); 
+	glBindVertexArray(0);
 
 	return VAO;
 }
-

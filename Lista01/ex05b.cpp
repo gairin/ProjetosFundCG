@@ -74,7 +74,7 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glLineWidth(10);
-		glPointSize(20);
+		glPointSize(10);
 
 		glBindVertexArray(VAO);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -143,9 +143,13 @@ int setupShader()
 int setupGeometry()
 {
 	GLfloat vertices[] = {
-		-0.5, -0.5, 0.0,
-		0.5, -0.5, 0.0,
-		0.0, 0.5, 0.0
+		0.0, 0.0, 0.0,
+		-0.5, 0.8, 0.0,
+		0.5, 0.8, 0.0,
+
+		0.0, 0.0, 0.0,
+		-0.5, -0.8, 0.0,
+		0.5, -0.8, 0.0
 	};
 
 	GLuint VBO, VAO;
