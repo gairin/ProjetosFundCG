@@ -1,0 +1,13 @@
+1. GLSL é um pipeline programável. Responsável pelo processamento de geometria, pixels e shaders.
+Os shaders obrigatórios são:
+Vertex Shader: responsável por processar cada vértice do objeto
+Fragment Shader: processa cada fragmento de pixel resultante do processo de rasterização
+
+2. Primitivas são os elementos fundamentais das quais outras primitivas são feitas. São usados para construir formas.
+
+3.VBO: armazena em um buffer os vértices de um objeto
+VAO: gerencia os dados atribuídos aos vértices, ligam os vértices, definem qual VBO vai ser usado
+EBO: armazena os índices dos vértices, descreve a ordem dos vértices que devem ser renderizados
+
+A relação entre eles é que são usados juntos para a definição e renderização de cada objeto
+
