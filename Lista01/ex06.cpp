@@ -86,7 +86,7 @@ int main()
 
 	// Gerando um buffer simples, com a geometria de um triângulo
 	//GLuint VAO = setupGeometry();
-	int nPoints = 20;
+	int nPoints = 200;
 	GLuint VAO = createCircle(0.5, nPoints);
 
 	glUseProgram(shader.ID);
