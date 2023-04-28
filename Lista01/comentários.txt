@@ -1,0 +1,11 @@
+aluno: marco di iorio
+
+ex06
+não sabia fazer a estrela; não entendi como fazer a fatia de pizza.
+
+ex07
+não faço ideia de como fazer
+
+ex09
+não sabia muito bem como preencher a parte de dentro dos line loops, então ficou sem colorir.
+criei uma função única para a configuração dos VAOs. cada parte está separada em uma função própria.
