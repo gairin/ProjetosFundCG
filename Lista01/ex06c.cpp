@@ -36,6 +36,7 @@ void mouse_callback(GLFWwindow* window, double mouse_x, double mouse_y);
 // Protótipos das funções
 int setupGeometry();
 int createCircle(float radius, int nPoints);
+int createPie(float radius, float anglei, float anglef, int &nPoints);
 
 // Dimensões da janela (pode ser alterado em tempo de execução)
 const GLuint WIDTH = 800, HEIGHT = 600;
@@ -61,7 +62,7 @@ int main()
 //#endif
 
 	// Criação da janela GLFW
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Ex06c", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Ex06d", nullptr, nullptr);
 	glfwMakeContextCurrent(window);
 
 	// Fazendo o registro da função de callback para a janela GLFW
@@ -86,8 +87,10 @@ int main()
 
 	// Gerando um buffer simples, com a geometria de um triângulo
 	//GLuint VAO = setupGeometry();
-	int nPoints = 20;
+	int nPoints = 200;
 	GLuint VAO = createCircle(0.5, nPoints);
+	int nPoints2 = 200;
+	GLuint VAO2 = createPie(0.5, 45.0, 325.0, nPoints2);
 
 	glUseProgram(shader.ID);
 
@@ -116,13 +119,14 @@ int main()
 		glLineWidth(10);
 		glPointSize(20);
 
-		glBindVertexArray(VAO); //Conectando ao buffer de geometria
+		glBindVertexArray(VAO2); //Conectando ao buffer de geometria
 
 		// Chamada de desenho - drawcall
 		// Poligono Preenchido - GL_TRIANGLES
 
-		glDrawArrays(GL_TRIANGLE_FAN, 0, nPoints);
-
+		//glDrawArrays(GL_TRIANGLE_FAN, 0, nPoints + 2);
+		glDrawArrays(GL_TRIANGLE_FAN, 0, nPoints2);
+		
 		// Chamada de desenho - drawcall
 		// PONTOS - GL_POINTS
 
@@ -214,11 +218,11 @@ int setupGeometry()
 int createCircle(float radius, int nPoints) {
 	
 	vector <GLfloat> vertices;
-	float angle = 0.0;
+	float angle = 45;
 	float slice = 2 * PI / (float) nPoints;
 
 	float r = 1.0;
-	float g = 1.0;
+	float g = 0.0;
 	float b = 0.0;
 
 	// vértice central
@@ -231,7 +235,7 @@ int createCircle(float radius, int nPoints) {
 	vertices.push_back(b);
 
 	// coordenadas dos pontos
-	for (int i = 0; i < nPoints; i++) {
+	for (int i = 0; i < nPoints + 1; i++) {
 		float x = radius * cos(angle);
 		float y = radius * sin(angle);
 		float z = 0.0;
@@ -268,3 +272,64 @@ int createCircle(float radius, int nPoints) {
 
 	return VAO;
 }
+
+int createPie(float radius, float anglei, float anglef, int &nPoints) {
+	vector<GLfloat> vertices;
+	float angle = 0.0;
+	float slice = glm::radians(10.0f);
+	anglei = glm::radians(anglei);
+	anglef = glm::radians(anglef);
+
+	float r = 1.0;
+	float g = 1.0;
+	float b = 0.0;
+
+	// vértice central
+	vertices.push_back(0.0);
+	vertices.push_back(0.0);
+	vertices.push_back(0.0);
+
+	vertices.push_back(r);
+	vertices.push_back(g);
+	vertices.push_back(b);
+
+	for (float angle = anglei; angle <= anglef; angle += slice) {
+		float x = radius * cos(angle);
+		float y = radius * sin(angle);
+		float z = 0.0;
+
+		vertices.push_back(x);
+		vertices.push_back(y);
+		vertices.push_back(z);
+
+		vertices.push_back(r);
+		vertices.push_back(g);
+		vertices.push_back(b);
+
+		angle += slice;
+	}
+
+	nPoints = vertices.size() / 6;
+
+	GLuint VBO, VAO;
+
+	glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GLfloat), vertices.data(), GL_STATIC_DRAW);
+
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
+	glEnableVertexAttribArray(0);
+
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glBindVertexArray(0);
+
+	return VAO;
+
+};
