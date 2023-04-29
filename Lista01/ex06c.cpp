@@ -121,7 +121,7 @@ int main()
 		// Chamada de desenho - drawcall
 		// Poligono Preenchido - GL_TRIANGLES
 
-		glDrawArrays(GL_TRIANGLE_FAN, 0, nPoints + 1);
+		glDrawArrays(GL_TRIANGLE_FAN, 0, nPoints);
 
 		// Chamada de desenho - drawcall
 		// PONTOS - GL_POINTS
