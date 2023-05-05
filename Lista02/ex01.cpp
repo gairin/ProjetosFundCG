@@ -1,4 +1,4 @@
-/*#include <iostream>
+#include <iostream>
 #include <string>
 #include <assert.h>
 
@@ -10,8 +10,12 @@ using namespace std;
 // GLFW
 #include <GLFW/glfw3.h>
 
-#include "Shader.h"
+// GLM
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
+#include "Shader.h"
 
 // Protótipo da função de callback de teclado
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -73,6 +77,11 @@ int main()
 
 	glUseProgram(shader.ID);
 
+	glm::mat4 projection = glm::ortho(-10.0, 10.0, -10.0, 10.0, -1.0, 1.0);
+
+	GLint projLoc = glGetUniformLocation(shader.ID, "projection");
+	glUniformMatrix4fv(projLoc, 1, FALSE, glm::value_ptr(projection));
+
 
 	// Loop da aplicação - "game loop"
 	while (!glfwWindowShouldClose(window))
@@ -80,6 +89,8 @@ int main()
 		// Definindo as dimensões da viewport com as mesmas dimensões da janela da aplicação
 		int width, height;
 		glfwGetFramebufferSize(window, &width, &height);
+		glViewport(0, 0, width, height);
+
 		
 		// Checa se houveram eventos de input (key pressed, mouse moved etc.) e chama as funções de callback correspondentes
 		glfwPollEvents();
@@ -93,20 +104,9 @@ int main()
 
 		glBindVertexArray(VAO); //Conectando ao buffer de geometria
 
-		// 1
-		glViewport((width / 2), (height / 2), (width / 2), (height / 2));
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		// Chamada de desenho - drawcall
+		// Poligono Preenchido - GL_TRIANGLES
 
-		// 2
-		glViewport(0, (height / 2), (width / 2), (height / 2));
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-
-		// 3
-		glViewport(0, 0, (width / 2), (height / 2));
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-
-		// 4
-		glViewport((width / 2), 0, (width / 2), (height / 2));
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 
 

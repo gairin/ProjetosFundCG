@@ -1,0 +1,3 @@
+3.
+O triângulo não está visível por causa da projeção que o projeta em um tamanho pequeno demais para ser visível.
+Esta configuração é útil pois nos permite controlar qual parte da aplicação será mostrada por meio da perspectiva.
