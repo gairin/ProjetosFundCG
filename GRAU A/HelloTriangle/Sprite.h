@@ -24,11 +24,13 @@ public:
 	
 	void moveRight();
 	void moveLeft();
+	void moveUp();
+	void moveDown();
 
 	//Getters e setters
 	inline void setVelocity(float vel) { this->vel = vel; }
 	inline void setScale(glm::vec3 scale) { this->scale = scale; }
-	inline glm::vec3 getPosition() { return position;  }
+	inline glm::vec3 getPosition() { return position; }
 	AABB getAABB();
 
 protected:
@@ -49,6 +51,5 @@ protected:
 	int iAnimation, iFrame;
 	float vel;
 	int status;
-
 };
 

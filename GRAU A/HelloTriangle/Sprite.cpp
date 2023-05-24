@@ -124,6 +124,14 @@ void Sprite::moveLeft()
 	position.x -= vel;
 }
 
+void Sprite::moveUp() {
+	position.y += vel;
+}
+
+void Sprite::moveDown() {
+	position.y -= vel;
+}
+
 AABB Sprite::getAABB()
 {
 	AABB pontos;

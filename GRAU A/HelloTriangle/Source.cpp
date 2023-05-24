@@ -152,24 +152,27 @@ int main()
 	return 0;
 }
 
-// Função de callback de teclado - só pode ter uma instância (deve ser estática se
-// estiver dentro de uma classe) - É chamada sempre que uma tecla for pressionada
-// ou solta via GLFW
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
-{
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+{ 
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, GL_TRUE);
+	}
 
-	if (key == GLFW_KEY_D || key == GLFW_KEY_RIGHT)
-	{
+	if (key == GLFW_KEY_D || key == GLFW_KEY_RIGHT) {
 		player.moveRight();
 	}
 
-	if (key == GLFW_KEY_A || key == GLFW_KEY_LEFT)
-	{
+	if (key == GLFW_KEY_A || key == GLFW_KEY_LEFT) {
 		player.moveLeft();
 	}
 
+	if (key == GLFW_KEY_S || key == GLFW_KEY_DOWN) {
+		player.moveDown();
+	}
+
+	if (key == GLFW_KEY_W || key == GLFW_KEY_UP) {
+		player.moveUp();
+	}
 }
 
 void mouse_callback(GLFWwindow* window, double mouse_x, double mouse_y)
