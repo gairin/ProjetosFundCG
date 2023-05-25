@@ -117,19 +117,23 @@ void Sprite::draw()
 void Sprite::moveRight()
 {
 	position.x += vel;
+	angle = 0;
 }
 
 void Sprite::moveLeft()
 {
 	position.x -= vel;
+	angle = glm::radians(180.0f);
 }
 
 void Sprite::moveUp() {
 	position.y += vel;
+	angle = glm::radians(90.0f);
 }
 
 void Sprite::moveDown() {
 	position.y -= vel;
+	angle = glm::radians(-90.0f);
 }
 
 AABB Sprite::getAABB()

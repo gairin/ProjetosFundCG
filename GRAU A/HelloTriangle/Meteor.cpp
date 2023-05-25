@@ -2,8 +2,12 @@
 
 void Meteor::update()
 {
-	// atualiza a seed de randomização
-	std::srand(static_cast<unsigned int>(std::time(nullptr)));
+	// cria e muda a seed de randomização para spawns realmente únicos e aleatórios
+	static bool isSeedInitialized = false;
+	if (!isSeedInitialized) {
+		std::srand(static_cast<unsigned int>(std::time(nullptr)));
+		isSeedInitialized = true;
+	}
 
 	// saiu da tela, respawna outro, conta ponto
 	if (position.y < 0 || position.y > 620 || position.x < 0 || position.x > 800)
@@ -45,10 +49,12 @@ void Meteor::update()
 	//de acordo com os indices de animação e frame
 	iFrame = (iFrame + 1) % nFrames;
 	shader->setVec2("offsets", iFrame * dx, iAnimation * dy);
-
 }
 
 void Meteor::respawn(int m) {
+	// aumenta um pouco a velocidade a cada tiro
+	vel += 1;
+
 	switch(m) {
 		// de cima pra baixo
 		case 0:

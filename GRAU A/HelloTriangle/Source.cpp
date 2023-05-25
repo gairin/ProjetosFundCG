@@ -15,7 +15,6 @@ using namespace std;
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-
 #include "Shader.h"
 #include "stb_image.h"
 //#include "Sprite.h"
@@ -79,12 +78,12 @@ int main()
 
 	texID = setupTexture("../../Textures/laser.png", texWidth, texHeight);
 	Meteor laser;
-	laser.initialize(texID, glm::vec2(texWidth*2, texHeight * 2), &shader, 1, 3, glm::vec3(400.0,620.0,0.0));
+	laser.initialize(texID, glm::vec2(texWidth*2, texHeight * 2), &shader, 1, 3, glm::vec3(rand() % 800, rand() % 620, 0.0));
 	laser.setVelocity(10.0);
 
 	texID = setupTexture("../../Textures/ship.png", texWidth, texHeight);
-	player.initialize(texID, glm::vec2(texWidth * 0.1, texHeight  *0.1), &shader, 1, 3, glm::vec3(100.0,150.0,0.0));
-	player.setVelocity(7.5);
+	player.initialize(texID, glm::vec2(texWidth * 0.15, texHeight * 0.15), &shader, 1, 3, glm::vec3(400.0, 310.0, 0.0));
+	player.setVelocity(20);
 
 	Timer timer;
 
