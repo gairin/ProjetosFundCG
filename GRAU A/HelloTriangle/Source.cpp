@@ -78,7 +78,7 @@ int main()
 
 	texID = setupTexture("../../Textures/laser.png", texWidth, texHeight);
 	Meteor laser;
-	laser.initialize(texID, glm::vec2(texWidth*2, texHeight * 2), &shader, 1, 3, glm::vec3(rand() % 800, rand() % 620, 0.0));
+	laser.initialize(texID, glm::vec2(texWidth * 2, texHeight * 2), &shader, 1, 3, glm::vec3(rand() % 800, rand() % 620, 0.0));
 	laser.setVelocity(10.0);
 
 	texID = setupTexture("../../Textures/ship.png", texWidth, texHeight);
@@ -130,7 +130,11 @@ int main()
 		player.draw();
 
 		bool isColliding = testCollision(laser, player);
-		//AQUI processa a lógica da colisão
+
+		if (isColliding) {
+			std::cout << "Fim de Jogo" << std::endl;
+			break;
+		}
 
 		//cout << player.getPosition().x << " " << player.getPosition().y << endl;
 
@@ -223,12 +227,15 @@ int setupTexture(string texName, int& width, int& height)
 
 bool testCollision(Sprite &a, Sprite &b)
 {
-	AABB pA = a.getAABB();
-	AABB pb = b.getAABB();
+	AABB laser = a.getAABB();
+	AABB nave = b.getAABB();
 
-	//teste de colisão
-	//Fazer o if pra ver se um AABB não sobrepõe o outro
+	bool collisionX = laser.pmax.x >= nave.pmin.x && laser.pmin.x <= nave.pmax.x;
+	bool collisionY = laser.pmax.y >= nave.pmin.y && laser.pmin.y <= nave.pmax.y;
+
+	if (collisionX && collisionY) {
+		return true;
+	}
 	
-	return true;
+	return false;
 }
-
