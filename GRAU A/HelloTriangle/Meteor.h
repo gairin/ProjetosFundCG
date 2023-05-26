@@ -7,5 +7,6 @@ class Meteor: public Sprite {
         Meteor() {}
         void update();
         void respawn(int m);
+        void destroy();
 };
 

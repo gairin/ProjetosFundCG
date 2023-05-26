@@ -17,6 +17,7 @@ void Sprite::initialize(GLuint texID, glm::vec2 sprDimensions, Shader* shader, i
 	this->nAnimations = nAnimations;
 	this->nFrames = nFrames;
 	this->axis = axis;
+	this->active = true;
 
 	dx = 1.0 / (float)nFrames;
 	dy = 1.0 / (float)nAnimations;
@@ -116,22 +117,38 @@ void Sprite::draw()
 
 void Sprite::moveRight()
 {
+	if (!this->active) {
+		return;
+	}
+
 	position.x += vel;
 	angle = 0;
 }
 
 void Sprite::moveLeft()
 {
+	if (!this->active) {
+		return;
+	}
+
 	position.x -= vel;
 	angle = glm::radians(180.0f);
 }
 
 void Sprite::moveUp() {
+	if (!this->active) {
+		return;
+	}
+
 	position.y += vel;
 	angle = glm::radians(90.0f);
 }
 
 void Sprite::moveDown() {
+	if (!this->active) {
+		return;
+	}
+
 	position.y -= vel;
 	angle = glm::radians(-90.0f);
 }

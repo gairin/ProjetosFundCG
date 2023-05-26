@@ -123,20 +123,43 @@ int main()
 		background.update();
 		background.draw();
 
-		laser.update();
-		laser.draw();
+		if (player.getActive()) {
+			laser.update();
+			laser.draw();
+		}
+		
+		glm::vec3 currentPos = player.getPosition();
+
+		// evita que a nave saia da tela
+		if (currentPos.x > WIDTH) {
+			currentPos.x = WIDTH;
+			player.setPosition(currentPos);
+		}
+		else if (currentPos.x < 0) {
+			currentPos.x = 0;
+			player.setPosition(currentPos);
+		}
+		else if (currentPos.y > HEIGHT) {
+			currentPos.y = HEIGHT;
+			player.setPosition(currentPos);
+		}
+		else if (currentPos.y < 0) {
+			currentPos.y = 0;
+			player.setPosition(currentPos);
+		}
 
 		player.update();
 		player.draw();
 
-		bool isColliding = testCollision(laser, player);
-
-		if (isColliding) {
+		if (testCollision(laser, player)) {
 			std::cout << "Fim de Jogo" << std::endl;
-			break;
-		}
 
-		//cout << player.getPosition().x << " " << player.getPosition().y << endl;
+			texID = setupTexture("../../Textures/explosao.png", texWidth, texHeight);
+			player.initialize(texID, glm::vec2(texWidth, texHeight), &shader, 1, 10, currentPos);
+			player.setActive(false);
+
+			laser.destroy();
+		}
 
 		timer.finish();
 		double waitingTime = timer.calcWaitingTime(30, timer.getElapsedTimeMs());

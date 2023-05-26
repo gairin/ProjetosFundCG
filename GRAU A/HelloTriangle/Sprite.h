@@ -30,7 +30,10 @@ public:
 	//Getters e setters
 	inline void setVelocity(float vel) { this->vel = vel; }
 	inline void setScale(glm::vec3 scale) { this->scale = scale; }
+	inline void setActive(bool state) { this->active = state; }
+	inline void setPosition(glm::vec3 position) { this->position = position; }
 	inline glm::vec3 getPosition() { return position; }
+	inline bool getActive() { return active; }
 	AABB getAABB();
 
 protected:
@@ -51,5 +54,6 @@ protected:
 	int iAnimation, iFrame;
 	float vel;
 	int status;
+	bool active;
 };
 

@@ -9,8 +9,8 @@ void Meteor::update()
 		isSeedInitialized = true;
 	}
 
-	// saiu da tela, respawna outro, conta ponto
-	if (position.y < 0 || position.y > 620 || position.x < 0 || position.x > 800)
+	// saiu da tela, spawna outro, contaria ponto
+	if (position.y < 0 || position.y > 600 || position.x < 0 || position.x > 800)
 	{	
 		// gera aleatoriamente um modo de disparo (direções horizontais e verticais)
 		m = (rand() % 4);
@@ -78,4 +78,10 @@ void Meteor::respawn(int m) {
 			position.x = 800;
 			break;
 	}
+}
+
+void Meteor::destroy() {
+	position.x = 900;
+	position.y = 900;
+	vel = 0;
 }
