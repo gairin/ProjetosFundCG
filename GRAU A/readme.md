@@ -1,6 +1,8 @@
-Jogo Space Game
+#Jogo Space Game
+##Link apresentação: https://www.youtube.com/watch?v=RAo8FlvvTio
+###Nota: a voz do Pedro na gravação saiu baixa, mas se aumentar o volume deve dar pra ouvir.
 
-Alunos: Marco di Iorio e Pedro Tavares
+Alunos: Marco di Iorio e Pedro Rodrigues
 
 Controles:
 A/<- = mover pra esquerda
@@ -9,7 +11,7 @@ W/cima = mover para cima
 S/baixo = mover para baixo
 (pode dar tapinhas nas teclas ou segurar)
 
-O jogo é uma navezinha que pode se mover para os lados se desviando de lasers vindos de todos os lados da tela.
+O jogo é sobre uma nave que pode se mover para os lados se desviando de lasers vindos de todos os lados da tela.
 Encostar em um dos lasers acaba o jogo.
 
 Features:
