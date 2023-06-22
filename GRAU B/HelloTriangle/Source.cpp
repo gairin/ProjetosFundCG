@@ -240,9 +240,10 @@ int main()
 					}
 				}
 
+				glm::vec3 currentColor = colorPalette[iColor];
 
 				//Desenho do cursor
-				shader.setVec4("inputColor", 1.0, 1.0, 0.0, 0.7);
+				shader.setVec4("inputColor", currentColor.r, currentColor.g, currentColor.b, 0.7);
 				model = glm::mat4(1);
 
 				glm::vec3 pos;
@@ -832,16 +833,16 @@ void load() {
 
 			if (!filein.fail()) {
 				matrix[i][j][k] = std::stoi(inMatrix);
-				k++;
+				i++;
+
+				if (i > 4) {
+					i = 0;
+					k++;
+				}
 
 				if (k > 4) {
 					k = 0;
 					j++;
-				}
-
-				if (j > 4) {
-					j = 0;
-					i++;
 				}
 			}
 		}
@@ -849,6 +850,7 @@ void load() {
 		while (!filein.fail());
 
 		filein.close();
+		std::copy(&matrix[0][0][0], &matrix[0][0][0] + 5 * 5 * 5, &voxelmap[0][0][0]);
 	}
 
 	else {
