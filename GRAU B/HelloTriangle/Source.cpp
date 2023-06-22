@@ -35,6 +35,7 @@ int setupVoxel(glm::vec3 color);
 void setupColorPalette();
 void updateCameraPos(GLFWwindow* window);
 void save(string fileName);
+void load();
 
 // Dimensões da janela (pode ser alterado em tempo de execução)
 const GLuint WIDTH = 800, HEIGHT = 600;
@@ -334,6 +335,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 	if (key == GLFW_KEY_M && action == GLFW_PRESS) {
 		save("voxelMap.txt");
+	}
+	
+	if (key == GLFW_KEY_L && action == GLFW_PRESS) {
+		load();
 	}
 
 	//cout << (int)gridCursor.x << " " << (int)gridCursor.y << " " << (int)gridCursor.z << endl;
@@ -811,6 +816,46 @@ void setupColorPalette()
 	colorPalette.push_back(glm::vec3(1.0, 1.0, 1.0)); //branco 7
 }
 
+void load() {
+	string inMatrix;
+	int matrix[5][5][5];
+
+	std::ifstream filein("voxelMap.txt");
+
+	if (filein.is_open()) {
+		int i = 0;
+		int j = 0;
+		int k = 0;
+
+		do {
+			filein >> inMatrix;
+
+			if (!filein.fail()) {
+				matrix[i][j][k] = std::stoi(inMatrix);
+				k++;
+
+				if (k > 4) {
+					k = 0;
+					j++;
+				}
+
+				if (j > 4) {
+					j = 0;
+					i++;
+				}
+			}
+		}
+
+		while (!filein.fail());
+
+		filein.close();
+	}
+
+	else {
+		std::cout << "Não foi possível abrir o mapa para carregamento" << std::endl;
+	}
+}
+
 void save(string fileName)
 {
 	ofstream outputFile;
@@ -831,7 +876,6 @@ void save(string fileName)
 		}
 		outputFile << endl;
 	}
-
 
 	outputFile.close();
 
